@@ -61,7 +61,7 @@ The AutoML config was the following parameters:
 * n_cross_validations=5  
   This parameter sets the number of cross validation to be performed while training the model. In this case was chosen 5 folds for cross-validation to avoid overfitting and generalize better the model. 
 
-The best performing model was the VotingEnsemble among the several tested. Some of these models were LightGBM, Xgboost, ExtremeRandomTrees, StandardScalerWrapper, RandomForest. A voting ensemble works by combining the predictions from multiple models. It uses Soft Voting that predicts the class with the largest summed probability from models.
+The best performing model was the VotingEnsemble among the several tested. Some of these models were LightGBM, Xgboost, ExtremeRandomTrees, StandardScalerWrapper, RandomForest. A voting ensemble works by combining the predictions from multiple models. It uses Soft Voting that predicts the class with the largest summed probability from models. The AutoML generates parameters of its inner estimators. It can be highlighted that the VotingEnsemble model used L1 Regularization as one of these parameters. The L1 Regularization adds "absolute value of magnitude" of coefficient as penalty term to the loss function shrinking the less important feature’s coefficient to zero thus, removing some feature altogether. The model pipeline also included a DataTransformer that performs the feature engineering where you can check features modification through the following parameters RawFeatureName, TypeDetected, Dropped, EngineeringFeatureCount and Transformations.
 
 ![best_automl](/images/best-automl-model.png)
 
@@ -72,12 +72,11 @@ In relation to the architecture, AutoML has some clear benefits that is saving r
 ## Future work
 For future improvements there are some aspects that can be explored:
 
-* It could be correted  the unbalanced data.
+* It could be correted  the imbalanced data.
 * Use more data to get more complex correlations.
-* Explore different sampling methods to get better metric result.
-* Explore different hyperparemters and ranges for an specific algorithm.
+* Explore different hyperparameters and ranges for a specific algorithm.
 
-For the unbalenced data could be used some technique as undersampling, oversampling, VAE or SMOTE to resemble the dataset. It could be collected more data from the minority class. Some metrics work better with unbalanced data for example F1-score, AUC.  
+The imbalanced data is a problem when using accuracy as a metric because the model tends do classify correct the majority class obtaining a high accuracy, while the minority class accuracy can be very low. So, accuracy would not be the best fit for this case scenario. For the imbalenced data could be used some technique as undersampling, oversampling, VAE or SMOTE to resemble the dataset. It could be collected more data from the minority class. Some metrics work better with imbalanced data for example F1-score, AUC.  
 All of these implementations could result in better model performance and allows a different result interpretability.
 
 ## Proof of cluster clean up
